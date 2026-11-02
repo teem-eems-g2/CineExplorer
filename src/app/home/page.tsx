@@ -1,6 +1,8 @@
 import React from 'react';
 import HeroSection from './components/HeroSection';
 import TrendingSection from './components/TrendingSection';
+import MoodMatcherSection from './components/MoodMatcherSection';
+import DoubleFeatureSection from './components/DoubleFeatureSection';
 import GenreSection from './components/GenreSection';
 import MovieDetailSection from './components/MovieDetailSection';
 import StatsSection from './components/StatsSection';
@@ -15,8 +17,10 @@ export default function HomePage() {
       <Header />
       <HeroSection />
       <TrendingSection />
-      <GenreSection />
+      <MoodMatcherSection />
+      <DoubleFeatureSection />
       <MovieDetailSection />
+      <GenreSection />
       <StatsSection />
       <Footer />
     </main>

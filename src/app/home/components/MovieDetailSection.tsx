@@ -1,13 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import AppImage from '@/components/ui/AppImage';
 import MovieModal from './MovieModal';
 import { featuredMovie } from '@/data/Movies';
+import { useWatchlist } from '@/context/WatchlistContext';
 
 export default function MovieDetailSection() {
   const [showModal, setShowModal] = useState(false);
+  const { isInWatchlist, toggleWatchlist } = useWatchlist();
   const movie = featuredMovie;
+  const inWatchlist = isInWatchlist(movie.id);
 
   return (
     <>
@@ -28,7 +32,7 @@ export default function MovieDetailSection() {
           </div>
 
           {/* Detail card — asymmetric 40/60 split */}
-          <div className="glass-card rounded-3xl overflow-hidden">
+          <div className="glass-card rounded-3xl overflow-hidden border border-white/10">
             <div className="flex flex-col lg:flex-row">
               {/* Poster — 40% */}
               <div className="relative lg:w-[40%] aspect-[2/3] lg:aspect-auto lg:min-h-[600px] flex-shrink-0">
@@ -48,11 +52,11 @@ export default function MovieDetailSection() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <button
                     onClick={() => setShowModal(true)}
-                    className="w-16 h-16 rounded-full glass-dark flex items-center justify-center hover:scale-110 transition-transform duration-300 group"
+                    className="w-16 h-16 rounded-full glass-dark flex items-center justify-center hover:scale-110 transition-transform duration-300 group shadow-glow-accent bg-cine-accent/90"
                     aria-label={`Watch trailer for ${movie?.title}`}
                   >
                     <svg
-                      className="w-6 h-6 text-cine-foreground ml-1 group-hover:text-cine-accent transition-colors"
+                      className="w-6 h-6 text-white ml-1"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -78,68 +82,73 @@ export default function MovieDetailSection() {
                       <span className="text-xs text-cine-foreground/40 font-body">/10</span>
                     </div>
 
-                    {/* Year */}
-                    <span className="text-sm font-body font-500 text-cine-foreground/50 bg-white/05 px-3 py-1.5 rounded-lg border border-white/08">
+                    <span className="text-xs px-3 py-1.5 rounded-lg bg-white/06 border border-white/08 text-cine-foreground/60 font-body">
                       {movie?.year}
                     </span>
-
-                    {/* Runtime */}
-                    <span className="text-sm font-body font-500 text-cine-foreground/50 bg-white/05 px-3 py-1.5 rounded-lg border border-white/08">
+                    <span className="text-xs px-3 py-1.5 rounded-lg bg-white/06 border border-white/08 text-cine-foreground/60 font-body">
                       {movie?.runtime}
                     </span>
-
-                    {/* Genres */}
-                    {movie?.genres?.slice(0, 2)?.map((g) => (
+                    {movie?.genres?.map((g) => (
                       <span
                         key={g}
-                        className="text-xs font-body font-600 text-cine-primary/80 bg-cine-primary/10 border border-cine-primary/20 px-3 py-1.5 rounded-lg"
+                        className="text-xs px-3 py-1.5 rounded-lg bg-cine-primary/10 border border-cine-primary/20 text-cine-primary font-600 font-body"
                       >
                         {g}
                       </span>
                     ))}
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-display font-800 text-3xl md:text-4xl lg:text-5xl text-cine-foreground tracking-tight mb-4 leading-tight">
+                  {/* Title & Tagline */}
+                  <h3 className="font-display font-800 text-3xl sm:text-4xl text-cine-foreground tracking-tight mb-2">
                     {movie?.title}
                   </h3>
+                  {movie?.tagline && (
+                    <p className="text-cine-primary/70 font-body italic text-base mb-6">
+                      &ldquo;{movie.tagline}&rdquo;
+                    </p>
+                  )}
 
-                  {/* Tagline */}
-                  <p className="text-cine-primary/70 font-body font-500 italic text-base mb-6">
-                    {movie?.tagline}
-                  </p>
+                  {/* Director */}
+                  <div className="flex items-center gap-2 mb-6">
+                    <span className="text-xs text-cine-muted font-body uppercase tracking-widest">
+                      Director:
+                    </span>
+                    <span className="text-sm font-display font-700 text-cine-foreground">
+                      {movie?.director}
+                    </span>
+                  </div>
 
                   {/* Synopsis */}
-                  <p className="text-cine-foreground/65 font-body text-base leading-relaxed line-clamp-3 mb-8">
+                  <p className="text-cine-foreground/75 font-body leading-relaxed mb-8 max-w-2xl text-sm sm:text-base">
                     {movie?.synopsis}
                   </p>
 
                   {/* Cast */}
                   <div className="mb-8">
-                    <p className="text-xs font-body font-700 uppercase tracking-[0.18em] text-cine-muted mb-4">
-                      Cast
+                    <p className="text-xs font-body font-700 uppercase tracking-widest text-cine-muted mb-4">
+                      Starring Cast
                     </p>
-                    <div className="flex flex-wrap gap-3">
-                      {movie?.cast?.map((actor) => (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {movie?.cast?.slice(0, 6).map((actor) => (
                         <div
-                          key={actor?.name}
-                          className="flex items-center gap-2.5 glass rounded-xl px-3 py-2"
+                          key={actor.name}
+                          className="flex items-center gap-2.5 glass rounded-xl p-2.5 border border-white/06"
                         >
-                          <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                          <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-white/10">
                             <AppImage
-                              src={actor?.photo}
-                              alt={`${actor?.name} actor photo`}
-                              width={32}
-                              height={32}
+                              src={actor.photo}
+                              alt={actor.name}
+                              width={36}
+                              height={36}
                               className="object-cover w-full h-full"
                             />
                           </div>
-                          <div>
-                            <p className="text-xs font-display font-600 text-cine-foreground leading-none">
-                              {actor?.name}
+                          <div className="min-w-0">
+                            <p className="text-xs font-display font-600 text-cine-foreground truncate">
+                              {actor.name}
                             </p>
-                            <p className="text-[10px] text-cine-foreground/40 font-body mt-0.5">
-                              {actor?.role}
+                            <p className="text-[10px] text-cine-foreground/45 font-body truncate">
+                              {actor.role}
                             </p>
                           </div>
                         </div>
@@ -172,10 +181,10 @@ export default function MovieDetailSection() {
                 </div>
 
                 {/* CTAs */}
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap items-center gap-4">
                   <button
                     onClick={() => setShowModal(true)}
-                    className="btn-primary flex items-center gap-2.5 px-8 py-4 rounded-xl text-sm font-display font-700"
+                    className="btn-primary flex items-center gap-2.5 px-8 py-3.5 rounded-xl text-sm font-display font-700 shadow-glow-accent"
                     aria-label={`Watch trailer for ${movie?.title}`}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -183,29 +192,43 @@ export default function MovieDetailSection() {
                     </svg>
                     Watch Trailer
                   </button>
-                  <button className="btn-ghost flex items-center gap-2.5 px-8 py-4 rounded-xl text-sm font-display font-600">
+
+                  <button
+                    onClick={() => toggleWatchlist(movie)}
+                    className={`flex items-center gap-2.5 px-8 py-3.5 rounded-xl text-sm font-display font-600 transition-all ${
+                      inWatchlist
+                        ? 'bg-cine-accent text-white shadow-glow-accent'
+                        : 'btn-ghost'
+                    }`}
+                  >
                     <svg
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
-                      fill="none"
+                      fill={inWatchlist ? 'currentColor' : 'none'}
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="8" x2="12" y2="16" />
-                      <line x1="8" y1="12" x2="16" y2="12" />
+                      <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
                     </svg>
-                    Add to Watchlist
+                    {inWatchlist ? 'In Watchlist' : 'Add to Watchlist'}
                   </button>
+
+                  <Link
+                    href={`/movie/${movie.id}`}
+                    className="text-xs text-cine-foreground/60 hover:text-white transition-colors underline-offset-4 hover:underline ml-auto"
+                  >
+                    Dedicated Film Page →
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       {showModal && <MovieModal movie={movie} onClose={() => setShowModal(false)} />}
     </>
   );

@@ -45,11 +45,16 @@ module.exports = {
         'modal-in': 'modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
         'fade-in': 'fadeIn 0.5s ease forwards',
         'pulse-slow': 'pulse 3s ease-in-out infinite',
+        marquee: 'marquee 35s linear infinite',
       },
       keyframes: {
         fadeIn: {
           from: { opacity: '0' },
           to: { opacity: '1' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
       boxShadow: {

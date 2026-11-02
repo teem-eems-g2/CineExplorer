@@ -1,6 +1,12 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import '../styles/tailwind.css';
+import { WatchlistProvider } from '@/context/WatchlistContext';
+import WatchlistDrawer from '@/components/WatchlistDrawer';
+import TrailerModal from '@/components/TrailerModal';
+import TmdbKeyModal from '@/components/TmdbKeyModal';
+import CinemaRouletteMount from '@/components/CinemaRouletteMount';
+import Toast from '@/components/Toast';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -24,15 +30,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-
-        <script
-          type="module"
-          async
-          src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fcineexplor8124back.builtwithrocket.new&_be=https%3A%2F%2Fappanalytics.rocket.new&_v=0.1.18"
-        />
-        <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2" />
+      <body className="bg-cine-bg text-cine-foreground antialiased selection:bg-cine-accent/30 selection:text-white">
+        <WatchlistProvider>
+          {children}
+          <WatchlistDrawer />
+          <TrailerModal />
+          <TmdbKeyModal />
+          <CinemaRouletteMount />
+          <Toast />
+        </WatchlistProvider>
       </body>
     </html>
   );
