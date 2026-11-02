@@ -35,4 +35,8 @@ export const imageHosts = [
     protocol: 'https',
     hostname: 'i.ytimg.com',
   },
+  {
+    protocol: 'https',
+    hostname: 'ia.media-imdb.com',
+  },
 ];

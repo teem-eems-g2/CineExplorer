@@ -1,7 +1,7 @@
 import { type Movie, type CastMember } from '@/data/Movies';
 
-const OMDB_API_KEY = 'trilogy';
-const OMDB_BASE_URL = 'http://www.omdbapi.com/';
+const OMDB_API_KEY = process.env.OMDB_API_KEY || 'trilogy';
+const OMDB_BASE_URL = 'https://www.omdbapi.com/';
 
 export async function searchOmdb(query: string): Promise<Movie[]> {
   const q = query.trim();

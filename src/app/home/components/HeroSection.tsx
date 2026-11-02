@@ -242,16 +242,17 @@ export default function HeroSection() {
             <form onSubmit={handleSearch} className="relative mb-6">
               <div className="relative flex items-center rounded-2xl overflow-visible shadow-2xl">
                 {/* Search icon */}
-                <div className="absolute left-5 z-10 pointer-events-none">
+                <div className="absolute left-3.5 sm:left-5 z-10 pointer-events-none">
                   <svg
-                    width="20"
-                    height="20"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="rgba(245,245,240,0.45)"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    className="sm:w-5 sm:h-5"
                   >
                     <circle cx="11" cy="11" r="8" />
                     <path d="m21 21-4.35-4.35" />
@@ -270,7 +271,7 @@ export default function HeroSection() {
                     if (query.trim()) setIsOpen(true);
                   }}
                   placeholder="Search by title, director, cast, or genre..."
-                  className="search-input w-full pl-14 pr-44 py-5 rounded-2xl text-base bg-black/60 backdrop-blur-xl border border-white/15 focus:border-cine-accent/50 focus:outline-none transition-all"
+                  className="search-input w-full pl-10 sm:pl-14 pr-24 sm:pr-44 py-3.5 sm:py-5 rounded-2xl text-xs sm:text-base bg-black/60 backdrop-blur-xl border border-white/15 focus:border-cine-accent/50 focus:outline-none transition-all placeholder:text-cine-foreground/35"
                   aria-label="Search movies, shows, or actors"
                 />
 
@@ -283,7 +284,7 @@ export default function HeroSection() {
                       setIsOpen(false);
                       inputRef.current?.focus();
                     }}
-                    className="absolute right-36 text-cine-foreground/40 hover:text-white p-1 text-xs"
+                    className="absolute right-20 sm:right-36 text-cine-foreground/40 hover:text-white p-1 text-xs"
                     aria-label="Clear search"
                   >
                     ✕
@@ -292,10 +293,11 @@ export default function HeroSection() {
 
                 <button
                   type="submit"
-                  className="btn-primary absolute right-2 px-7 py-3 rounded-xl text-sm font-display font-700 shadow-glow-accent"
+                  className="btn-primary absolute right-2 px-3.5 sm:px-7 py-2 sm:py-3 rounded-xl text-xs sm:text-sm font-display font-700 shadow-glow-accent"
                   aria-label="Search"
                 >
-                  Explore Now
+                  <span className="hidden sm:inline">Explore Now</span>
+                  <span className="sm:hidden">Search</span>
                 </button>
               </div>
 

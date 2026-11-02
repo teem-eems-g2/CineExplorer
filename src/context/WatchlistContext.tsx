@@ -11,9 +11,9 @@ interface ToastData {
 
 interface WatchlistContextType {
   watchlist: Movie[];
-  isInWatchlist: (movieId: number) => boolean;
+  isInWatchlist: (movieId: number | string) => boolean;
   toggleWatchlist: (movie: Movie) => void;
-  removeFromWatchlist: (movieId: number) => void;
+  removeFromWatchlist: (movieId: number | string) => void;
   clearWatchlist: () => void;
   isWatchlistOpen: boolean;
   openWatchlist: () => void;
@@ -134,17 +134,18 @@ export function WatchlistProvider({ children }: { children: React.ReactNode }) {
   }, [showToast]);
 
   const isInWatchlist = useCallback(
-    (movieId: number) => watchlist.some((m) => m.id === movieId),
+    (movieId: number | string) =>
+      watchlist.some((m) => String(m.id) === String(movieId)),
     [watchlist]
   );
 
   const toggleWatchlist = useCallback(
     (movie: Movie) => {
       setWatchlist((prev) => {
-        const exists = prev.some((m) => m.id === movie.id);
+        const exists = prev.some((m) => String(m.id) === String(movie.id));
         let updated: Movie[];
         if (exists) {
-          updated = prev.filter((m) => m.id !== movie.id);
+          updated = prev.filter((m) => String(m.id) !== String(movie.id));
           showToast(`Removed "${movie.title}" from Watchlist`, 'info');
         } else {
           updated = [movie, ...prev];
@@ -160,10 +161,10 @@ export function WatchlistProvider({ children }: { children: React.ReactNode }) {
   );
 
   const removeFromWatchlist = useCallback(
-    (movieId: number) => {
+    (movieId: number | string) => {
       setWatchlist((prev) => {
-        const item = prev.find((m) => m.id === movieId);
-        const updated = prev.filter((m) => m.id !== movieId);
+        const item = prev.find((m) => String(m.id) === String(movieId));
+        const updated = prev.filter((m) => String(m.id) !== String(movieId));
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         } catch {}
