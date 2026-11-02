@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AppImage from '@/components/ui/AppImage';
-import { type Movie, getMovieTrailerId, getMovieDirectTrailerUrl } from '@/data/Movies';
+import { type Movie } from '@/data/Movies';
 import { useWatchlist } from '@/context/WatchlistContext';
+import { useTrailer } from '@/hooks/useTrailer';
 
 interface MovieModalProps {
   movie: Movie;
@@ -15,10 +16,10 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
   const [isPlayingTrailer, setIsPlayingTrailer] = useState(false);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const { isInWatchlist, toggleWatchlist, ratings, rateMovie, showToast } = useWatchlist();
+  const { embedUrl, directUrl, isLoading: isResolvingTrailer } = useTrailer(movie, isPlayingTrailer);
 
   const inWatchlist = isInWatchlist(movie.id);
   const userRating = ratings[movie.id] || 0;
-  const trailerId = getMovieTrailerId(movie);
 
   // Close on Escape key
   useEffect(() => {
@@ -54,13 +55,27 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
         <div className="relative aspect-video sm:h-96 w-full flex-shrink-0 bg-black overflow-hidden">
           {isPlayingTrailer ? (
             <div className="relative w-full h-full">
-              <iframe
-                src={`https://www.youtube.com/embed/${trailerId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`}
-                title={`${movie.title} official trailer`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full border-0"
-              />
+              {isResolvingTrailer && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/85 z-10">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-10 h-10 border-2 border-cine-accent border-t-transparent rounded-full animate-spin" />
+                    <p className="text-xs text-cine-muted font-display tracking-wider uppercase">
+                      Connecting stream for {movie.title}...
+                    </p>
+                  </div>
+                </div>
+              )}
+              {embedUrl && (
+                <iframe
+                  key={embedUrl}
+                  src={embedUrl}
+                  title={`${movie.title} official trailer`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="w-full h-full border-0"
+                />
+              )}
               <div className="absolute top-4 left-4 right-16 z-20 flex items-center justify-between pointer-events-none">
                 <button
                   onClick={() => setIsPlayingTrailer(false)}
@@ -69,7 +84,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
                   ← Back to Poster
                 </button>
                 <a
-                  href={getMovieDirectTrailerUrl(movie)}
+                  href={directUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="pointer-events-auto px-3 py-1.5 rounded-xl glass-dark text-xs font-display font-600 text-white hover:bg-white/25 transition-colors flex items-center gap-1.5 shadow-lg"
@@ -127,6 +142,27 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
             </svg>
           </button>
         </div>
+
+        {/* Fallback Notice Bar */}
+        {isPlayingTrailer && (
+          <div className="px-5 py-2.5 bg-black/90 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-cine-muted font-body">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>Official Cinema Stream HD</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>Restricted by your browser or ad-blocker?</span>
+              <a
+                href={directUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cine-accent hover:underline font-display font-600 inline-flex items-center gap-1"
+              >
+                Open directly on YouTube ↗
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* Scrollable Content */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6">

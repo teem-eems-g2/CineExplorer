@@ -102,9 +102,16 @@ export default function MoodMatcherSection() {
 
   const currentMood = MOODS.find((m) => m.id === selectedMoodId) || MOODS[0];
 
-  const matchedMovies = currentMood.movieTitles
+  let matchedMovies = currentMood.movieTitles
     .map((title) => allMovies.find((m) => m.title.toLowerCase() === title.toLowerCase()))
     .filter(Boolean) as Movie[];
+
+  // Fallback safeguard: ensure every mood always displays at least 3 curated masterpieces
+  if (matchedMovies.length < 3) {
+    const existingIds = new Set(matchedMovies.map((m) => m.id));
+    const backfill = allMovies.filter((m) => !existingIds.has(m.id));
+    matchedMovies = [...matchedMovies, ...backfill.slice(0, 3 - matchedMovies.length)];
+  }
 
   const handleSelectMood = (id: string) => {
     cinemaAudio.playTick();

@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useWatchlist } from '@/context/WatchlistContext';
-import { getMovieTrailerId, getMovieDirectTrailerUrl } from '@/data/Movies';
+import { useTrailer } from '@/hooks/useTrailer';
 
 export default function TrailerModal() {
   const { activeTrailerMovie, closeTrailer, isInWatchlist, toggleWatchlist } = useWatchlist();
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const { embedUrl, directUrl, isLoading: isResolvingTrailer } = useTrailer(activeTrailerMovie, true);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -26,8 +27,6 @@ export default function TrailerModal() {
 
   if (!activeTrailerMovie) return null;
 
-  const trailerId = getMovieTrailerId(activeTrailerMovie);
-  const directUrl = getMovieDirectTrailerUrl(activeTrailerMovie);
   const inWatchlist = isInWatchlist(activeTrailerMovie.id);
 
   return (
@@ -114,22 +113,30 @@ export default function TrailerModal() {
 
         {/* 16:9 Video Player */}
         <div className="relative w-full aspect-video bg-black flex items-center justify-center">
-          {!iframeLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-10">
+          {(isResolvingTrailer || !iframeLoaded) && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/85 z-10">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-10 h-10 border-2 border-cine-accent border-t-transparent rounded-full animate-spin" />
-                <p className="text-xs text-cine-muted font-display tracking-wider uppercase">Loading cinema stream...</p>
+                <p className="text-xs text-cine-muted font-display tracking-wider uppercase">
+                  {isResolvingTrailer
+                    ? `Connecting stream for ${activeTrailerMovie.title}...`
+                    : 'Loading cinema stream...'}
+                </p>
               </div>
             </div>
           )}
-          <iframe
-            src={`https://www.youtube.com/embed/${trailerId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`}
-            title={`${activeTrailerMovie.title} official trailer`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            onLoad={() => setIframeLoaded(true)}
-            className="w-full h-full border-0 relative z-20"
-          />
+          {embedUrl && (
+            <iframe
+              key={embedUrl}
+              src={embedUrl}
+              title={`${activeTrailerMovie.title} official trailer`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              onLoad={() => setIframeLoaded(true)}
+              className="w-full h-full border-0 relative z-20"
+            />
+          )}
         </div>
 
         {/* Fallback & Playback Notice Bar */}

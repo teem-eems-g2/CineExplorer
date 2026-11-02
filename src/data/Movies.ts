@@ -974,12 +974,321 @@ export const trendingMovies: Record<'now_playing' | 'trending' | 'toprated' | 'u
   ],
 };
 
+// ── Blockbuster modern masterpieces (2024–2025) ──
+export const blockbusterMovies: Movie[] = [
+  {
+    id: 17,
+    title: 'Gladiator II',
+    year: '2024',
+    rating: 7.4,
+    genres: ['Action', 'Drama', 'Adventure'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BNDIzNDU0YzEtYzE5Ni00ZjlkLTk5ZjgtODNjZmRhZTU5Y2Y3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BNDIzNDU0YzEtYzE5Ni00ZjlkLTk5ZjgtODNjZmRhZTU5Y2Y3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    synopsis:
+      'Years after witnessing the death of the revered hero Maximus at the hands of the corrupt Emperor Commodus, Lucius must enter the Colosseum to fight for the future of Rome.',
+    tagline: 'What we do in life echoes in eternity.',
+    runtime: '2h 28m',
+    releaseDate: 'November 22, 2024',
+    director: 'Ridley Scott',
+    cast: [
+      {
+        name: 'Paul Mescal',
+        role: 'Lucius',
+        photo:
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Pedro Pascal',
+        role: 'General Marcus Acacius',
+        photo:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Denzel Washington',
+        role: 'Macrinus',
+        photo:
+          'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: '4rgYUipGJNo',
+  },
+  {
+    id: 20,
+    title: 'Deadpool & Wolverine',
+    year: '2024',
+    rating: 7.9,
+    genres: ['Action', 'Comedy', 'Sci-Fi'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BNzRiMjg0MzUtNTQ1Eg00Y2Q5LWEwM2MtMzUwZDU5NmVjN2NkXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BNzRiMjg0MzUtNTQ1Eg00Y2Q5LWEwM2MtMzUwZDU5NmVjN2NkXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    synopsis:
+      'Wolverine is recovering from his injuries when he crosses paths with the loudmouth Deadpool. They team up to defeat a common enemy and save the multiverse.',
+    tagline: 'Everyone deserves a happy ending.',
+    runtime: '2h 8m',
+    releaseDate: 'July 26, 2024',
+    director: 'Shawn Levy',
+    cast: [
+      {
+        name: 'Ryan Reynolds',
+        role: 'Wade Wilson / Deadpool',
+        photo:
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Hugh Jackman',
+        role: 'Logan / Wolverine',
+        photo:
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Emma Corrin',
+        role: 'Cassandra Nova',
+        photo:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: '73_1biulkYk',
+  },
+  {
+    id: 19,
+    title: 'Alien: Romulus',
+    year: '2024',
+    rating: 7.3,
+    genres: ['Horror', 'Sci-Fi', 'Thriller'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BMDU2ZmM2OTYtNzIxYy00NjM5LTliNGQtN2IxNzQzOWQ3ZGQxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BMDU2ZmM2OTYtNzIxYy00NjM5LTliNGQtN2IxNzQzOWQ3ZGQxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    synopsis:
+      'While scavenging the deep ends of a derelict space station, a group of young space colonizers come face to face with the most terrifying life form in the universe.',
+    tagline: 'In space no one can hear you scream.',
+    runtime: '1h 59m',
+    releaseDate: 'August 16, 2024',
+    director: 'Fede Alvarez',
+    cast: [
+      {
+        name: 'Cailee Spaeny',
+        role: 'Rain Carradine',
+        photo:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'David Jonsson',
+        role: 'Andy',
+        photo:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Isabela Merced',
+        role: 'Kay',
+        photo:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: 'x0XDEhP4MQs',
+  },
+  {
+    id: 25,
+    title: 'The Substance',
+    year: '2024',
+    rating: 7.9,
+    genres: ['Horror', 'Drama', 'Sci-Fi'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_QL75_UY562_CR2,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_QL75_UY562_CR2,0,380,562_.jpg',
+    synopsis:
+      'A fading celebrity decides to use a black-market drug, a cell-replicating substance that temporarily creates a younger, better version of herself, unleashing grotesque consequences.',
+    tagline: 'Have you ever dreamt of a better version of yourself?',
+    runtime: '2h 21m',
+    releaseDate: 'September 20, 2024',
+    director: 'Coralie Fargeat',
+    cast: [
+      {
+        name: 'Demi Moore',
+        role: 'Elisabeth Sparkle',
+        photo:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Margaret Qualley',
+        role: 'Sue',
+        photo:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Dennis Quaid',
+        role: 'Harvey',
+        photo:
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: 'LNlrGhBpYjc',
+  },
+  {
+    id: 18,
+    title: 'Wicked',
+    year: '2024',
+    rating: 7.8,
+    genres: ['Fantasy', 'Musical', 'Romance'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BNjY5MWYyYzctMzcwNC00MWQ5LWEzYjktOTJkYmZlZDRjYmI5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BNjY5MWYyYzctMzcwNC00MWQ5LWEzYjktOTJkYmZlZDRjYmI5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    synopsis:
+      'Elphaba, an ostracized green-skinned girl in the Land of Oz, forms an unlikely friendship with Glinda the popular blonde, before their paths diverge into legend.',
+    tagline: 'Everyone deserves the chance to fly.',
+    runtime: '2h 40m',
+    releaseDate: 'November 22, 2024',
+    director: 'Jon M. Chu',
+    cast: [
+      {
+        name: 'Cynthia Erivo',
+        role: 'Elphaba',
+        photo:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Ariana Grande',
+        role: 'Glinda',
+        photo:
+          'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Jonathan Bailey',
+        role: 'Fiyero Tigelaar',
+        photo:
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: '6COmYeLsz4c',
+  },
+  {
+    id: 26,
+    title: 'Beetlejuice Beetlejuice',
+    year: '2024',
+    rating: 7.3,
+    genres: ['Comedy', 'Fantasy', 'Horror'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BMjA5OTg2NTQxNF5BMl5BanBnXkFtZTcwMjg4NDU4Mw@@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BMjA5OTg2NTQxNF5BMl5BanBnXkFtZTcwMjg4NDU4Mw@@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+    synopsis:
+      'After a family tragedy, three generations of the Deetz family return home to Winter River, where Lydia\'s teenage daughter accidentally opens the portal to the Afterlife.',
+    tagline: 'The juice is loose.',
+    runtime: '1h 45m',
+    releaseDate: 'September 6, 2024',
+    director: 'Tim Burton',
+    cast: [
+      {
+        name: 'Michael Keaton',
+        role: 'Beetlejuice',
+        photo:
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Winona Ryder',
+        role: 'Lydia Deetz',
+        photo:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Jenna Ortega',
+        role: 'Astrid Deetz',
+        photo:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: 'CoZqL9N6Rx4',
+  },
+  {
+    id: 23,
+    title: 'Twisters',
+    year: '2024',
+    rating: 7.1,
+    genres: ['Action', 'Adventure', 'Thriller'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BODlhNmU4Y2EtYTE5Ny00OTExLThkODMtZTIwYjFlYTI2ZGU3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BODlhNmU4Y2EtYTE5Ny00OTExLThkODMtZTIwYjFlYTI2ZGU3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    synopsis:
+      'An adrenaline-fueled, thrill-seeking storm chaser and a meteorologist team up to test a groundbreaking weather-alert system amid unprecedented tornado convergence.',
+    tagline: 'Chase the storm.',
+    runtime: '2h 2m',
+    releaseDate: 'July 19, 2024',
+    director: 'Lee Isaac Chung',
+    cast: [
+      {
+        name: 'Daisy Edgar-Jones',
+        role: 'Kate Carter',
+        photo:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Glen Powell',
+        role: 'Tyler Owens',
+        photo:
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Anthony Ramos',
+        role: 'Javi',
+        photo:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: 'wdok0rZdmx4',
+  },
+  {
+    id: 21,
+    title: 'A Quiet Place: Day One',
+    year: '2024',
+    rating: 6.9,
+    genres: ['Horror', 'Sci-Fi', 'Drama'],
+    poster:
+      'https://m.media-amazon.com/images/M/MV5BNTI4YjkyOGQtNGZlYS00M2E4LTg5YTMtYmU5MzQ1M2YyYjcyXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    backdrop:
+      'https://m.media-amazon.com/images/M/MV5BNTI4YjkyOGQtNGZlYS00M2E4LTg5YTMtYmU5MzQ1M2YyYjcyXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+    synopsis:
+      'A young woman named Sam must navigate the chaotic first minutes of the alien invasion in New York City with her service cat Frodo as sonic monsters tear the world apart.',
+    tagline: 'Hear how it all began.',
+    runtime: '1h 39m',
+    releaseDate: 'June 28, 2024',
+    director: 'Michael Sarnoski',
+    cast: [
+      {
+        name: 'Lupita Nyong\'o',
+        role: 'Samira "Sam"',
+        photo:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Joseph Quinn',
+        role: 'Eric',
+        photo:
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80',
+      },
+      {
+        name: 'Alex Wolff',
+        role: 'Reuben',
+        photo:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80',
+      },
+    ],
+    trailerYoutubeId: 'YPY7J-flzE8',
+  },
+];
+
 // ── All movies for genre grid ──
 export const allMovies: Movie[] = [
   ...trendingMovies.now_playing,
   ...trendingMovies.trending,
   ...trendingMovies.toprated,
   ...trendingMovies.upcoming,
+  ...blockbusterMovies,
 ];
 
 // ── Featured movie for detail section ──
@@ -1085,10 +1394,14 @@ export const TRAILER_MAP: Record<string, string> = {
   'Avatar: Fire and Ash': 'nb_fFj_0rq8',
 };
 
-export function getMovieTrailerId(movie?: Movie | null): string {
-  if (!movie) return 'Way9Dexny3w';
+export function getMovieTrailerId(movie?: Movie | null): string | undefined {
+  if (!movie) return undefined;
   if (movie.trailerYoutubeId && movie.trailerYoutubeId.trim().length === 11) {
-    return movie.trailerYoutubeId.trim();
+    if (movie.trailerYoutubeId === 'Way9Dexny3w' && !movie.title.toLowerCase().includes('dune')) {
+      // Ignore placeholder if title is not Dune
+    } else {
+      return movie.trailerYoutubeId.trim();
+    }
   }
   if (TRAILER_MAP[movie.title]) {
     return TRAILER_MAP[movie.title];
@@ -1098,16 +1411,27 @@ export function getMovieTrailerId(movie?: Movie | null): string {
   const matchedKey = Object.keys(TRAILER_MAP).find(k => k.toLowerCase() === lowerTitle);
   if (matchedKey) return TRAILER_MAP[matchedKey];
 
-  return 'Way9Dexny3w'; // Guaranteed valid Dune 2 trailer fallback
+  return undefined;
 }
 
 export function getMovieDirectTrailerUrl(movie?: Movie | null): string {
-  if (!movie) return 'https://www.youtube.com/watch?v=Way9Dexny3w';
+  if (!movie) return 'https://www.youtube.com';
   const id = getMovieTrailerId(movie);
   if (id) {
     return `https://www.youtube.com/watch?v=${id}`;
   }
-  return `https://www.youtube.com/results?search_query=${encodeURIComponent(movie.title + ' official trailer ' + movie.year)}`;
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent((movie.title || '') + ' ' + (movie.year || '') + ' official trailer')}`;
+}
+
+export function getMovieEmbedUrl(movie?: Movie | null, overrideId?: string | null): string {
+  if (!movie) return 'https://www.youtube.com/embed/Way9Dexny3w?autoplay=1&rel=0';
+  const id = overrideId || getMovieTrailerId(movie);
+  if (id) {
+    return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+  }
+  return `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(
+    (movie.title || '') + ' ' + (movie.year || '') + ' official trailer'
+  )}&autoplay=1&rel=0&modestbranding=1`;
 }
 
 export function getMovieById(id: number | string): Movie | undefined {

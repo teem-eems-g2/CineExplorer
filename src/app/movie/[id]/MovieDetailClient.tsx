@@ -5,8 +5,9 @@ import Link from 'next/link';
 import AppImage from '@/components/ui/AppImage';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { type Movie, getMovieTrailerId, getMovieDirectTrailerUrl } from '@/data/Movies';
+import { type Movie } from '@/data/Movies';
 import { useWatchlist } from '@/context/WatchlistContext';
+import { useTrailer } from '@/hooks/useTrailer';
 
 interface MovieDetailClientProps {
   movie: Movie;
@@ -17,10 +18,10 @@ export default function MovieDetailClient({ movie, similarMovies }: MovieDetailC
   const [isPlayingTrailer, setIsPlayingTrailer] = useState(false);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const { isInWatchlist, toggleWatchlist, ratings, rateMovie, showToast, openTrailer } = useWatchlist();
+  const { embedUrl, directUrl, isLoading: isResolvingTrailer } = useTrailer(movie, isPlayingTrailer);
 
   const inWatchlist = isInWatchlist(movie.id);
   const userRating = ratings[movie.id] || 0;
-  const trailerId = getMovieTrailerId(movie);
 
   const handleShare = () => {
     if (typeof window !== 'undefined' && navigator.clipboard) {
@@ -65,13 +66,27 @@ export default function MovieDetailClient({ movie, similarMovies }: MovieDetailC
           <div className="relative aspect-video max-h-[580px] w-full rounded-3xl overflow-hidden glass-dark border border-white/10 shadow-2xl bg-black">
             {isPlayingTrailer ? (
               <div className="relative w-full h-full">
-                <iframe
-                  src={`https://www.youtube.com/embed/${trailerId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`}
-                  title={`${movie.title} official trailer`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                />
+                {isResolvingTrailer && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/85 z-10">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-10 h-10 border-2 border-cine-accent border-t-transparent rounded-full animate-spin" />
+                      <p className="text-xs text-cine-muted font-display tracking-wider uppercase">
+                        Connecting stream for {movie.title}...
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {embedUrl && (
+                  <iframe
+                    key={embedUrl}
+                    src={embedUrl}
+                    title={`${movie.title} official trailer`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    className="w-full h-full border-0"
+                  />
+                )}
                 <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
                   <button
                     onClick={() => setIsPlayingTrailer(false)}
@@ -80,7 +95,7 @@ export default function MovieDetailClient({ movie, similarMovies }: MovieDetailC
                     ← Close Player
                   </button>
                   <a
-                    href={getMovieDirectTrailerUrl(movie)}
+                    href={directUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="pointer-events-auto px-4 py-2 rounded-xl glass-dark text-xs font-display font-600 text-white hover:bg-white/25 transition-colors flex items-center gap-2 shadow-lg"
@@ -137,6 +152,25 @@ export default function MovieDetailClient({ movie, similarMovies }: MovieDetailC
               </>
             )}
           </div>
+          {isPlayingTrailer && (
+            <div className="mt-3 px-6 py-2.5 rounded-2xl glass border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-cine-muted font-body">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Official Cinema Stream HD</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>Player restricted by your browser or ad-blocker?</span>
+                <a
+                  href={directUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cine-accent hover:underline font-display font-600 inline-flex items-center gap-1"
+                >
+                  Watch directly on YouTube ↗
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Content Section */}
